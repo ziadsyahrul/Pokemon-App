@@ -4,7 +4,7 @@
 
 # ⚡ Pokemon App
 
-> *Catch 'em all — even offline.*
+> *Tangkap Aku Massss*
 
 A modern Android App built with **Jetpack Compose** and **Clean Architecture**, featuring offline-first support, authentication, and smooth pagination.
 
