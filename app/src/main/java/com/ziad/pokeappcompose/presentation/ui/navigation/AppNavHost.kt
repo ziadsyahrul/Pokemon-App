@@ -1,17 +1,19 @@
 package com.ziad.pokeappcompose.presentation.ui.navigation
 
+import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.graphics.BlendMode.Companion.Screen
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import com.ziad.pokeappcompose.presentation.ui.MainScreen
-import com.ziad.pokeappcompose.presentation.ui.home.HomeScreen
+import androidx.navigation.navArgument
+import com.ziad.pokeappcompose.presentation.ui.detail.DetailRoute
 import com.ziad.pokeappcompose.presentation.ui.login.LoginRoute
+import com.ziad.pokeappcompose.presentation.ui.main.MainScreen
 import com.ziad.pokeappcompose.presentation.ui.register.RegisterRoute
 import com.ziad.pokeappcompose.presentation.viewmodel.AuthViewModel
 
@@ -70,7 +72,25 @@ fun AppNavHost(
             ) {
                 composable("home_tabs") {
                     MainScreen(
-                        rootNavController = navController
+                        rootNavController = navController,
+                        onNavigateToDetail  = { url ->
+                            navController.navigate(ScreenNavigation.Detail.create(url))
+                        }
+                    )
+                }
+
+                composable(
+                    route = ScreenNavigation.Detail.route,
+                    arguments = listOf(
+                        navArgument("url") { type = NavType.StringType }
+                    )
+                ) { backStack ->
+                    val encodedUrl = backStack.arguments?.getString("url") ?: ""
+                    val decodedUrl = Uri.decode(encodedUrl)
+
+                    DetailRoute(
+                        url = decodedUrl,
+                        onBack = { navController.popBackStack() }
                     )
                 }
             }

@@ -3,6 +3,7 @@ package com.ziad.pokeappcompose.presentation.ui.home
 import com.ziad.pokeappcompose.domain.model.pokemon.PokeItem
 
 data class HomeUIState(
+    val username: String = "",
     val isLoading: Boolean = false,
     val isPaginationLoading: Boolean = false,
     val pokemonList: List<PokeItem> = emptyList(),

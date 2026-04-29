@@ -1,6 +1,5 @@
-package com.ziad.pokeappcompose.presentation.ui
+package com.ziad.pokeappcompose.presentation.ui.main
 
-import android.net.Uri
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -13,20 +12,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import com.ziad.pokeappcompose.presentation.ui.detail.DetailRoute
 import com.ziad.pokeappcompose.presentation.ui.home.HomeRoute
 import com.ziad.pokeappcompose.presentation.ui.navigation.ScreenNavigation
 import com.ziad.pokeappcompose.presentation.ui.profile.ProfileRoute
 
 @Composable
 fun MainScreen(
-    rootNavController: NavHostController
+    rootNavController: NavHostController,
+    onNavigateToDetail: (String) -> Unit
 ) {
 
     val innerNavController = rememberNavController()
@@ -77,7 +74,7 @@ fun MainScreen(
             composable(ScreenNavigation.Home.route) {
                 HomeRoute(
                     onNavigateToDetail = { url ->
-                        innerNavController.navigate(ScreenNavigation.Detail.create(url))
+                        onNavigateToDetail(url)
                     }
                 )
             }
@@ -85,23 +82,6 @@ fun MainScreen(
             composable(ScreenNavigation.Profile.route) {
                 ProfileRoute(
                     rootNavController = rootNavController
-                )
-            }
-
-            composable(
-                route = ScreenNavigation.Detail.route, arguments = listOf(
-                    navArgument("url") {
-                        type = NavType.StringType
-                    }
-                )) { backStack ->
-                val encodedUrl =
-                    backStack.arguments?.getString("url") ?: ""
-
-                val decodedUrl = Uri.decode(encodedUrl)
-
-                DetailRoute (
-                    url = decodedUrl,
-                    onBack = { innerNavController.popBackStack() }
                 )
             }
         }

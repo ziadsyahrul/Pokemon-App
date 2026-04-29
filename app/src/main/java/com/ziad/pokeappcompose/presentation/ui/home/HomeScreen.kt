@@ -78,7 +78,7 @@ fun HomeScreen(
 
     val listState = rememberLazyListState()
     val purple = Color(0xFF3C3489)
-    var localQuery by remember { mutableStateOf("") }
+    var localQuery by remember { mutableStateOf(state.searchQuery) }
 
     LaunchedEffect(listState, state.filteredList.size) {
         snapshotFlow {
@@ -106,8 +106,9 @@ fun HomeScreen(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
+                .height(120.dp)
                 .background(purple)
-                .padding(start = 28.dp, end = 28.dp, top = 52.dp)
+                .padding(start = 28.dp, end = 28.dp, top = 28.dp, bottom = 16.dp)
         ) {
             Box(
                 modifier = Modifier
@@ -138,7 +139,7 @@ fun HomeScreen(
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = "Pokemon App",
+                        text = state.username.uppercase(),
                         style = MaterialTheme.typography.headlineMedium,
                         fontWeight = FontWeight.Medium,
                         color = Color.White
@@ -164,8 +165,9 @@ fun HomeScreen(
 
         // ── Search bar ──
         OutlinedTextField(
-            value = state.searchQuery,
+            value = localQuery,
             onValueChange = {
+                localQuery = it
                 onSearch(it)
             },
             modifier = Modifier

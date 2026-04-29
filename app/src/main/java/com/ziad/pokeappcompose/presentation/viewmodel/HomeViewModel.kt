@@ -3,33 +3,39 @@ package com.ziad.pokeappcompose.presentation.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ziad.pokeappcompose.data.local.SessionPreferenceManager
 import com.ziad.pokeappcompose.domain.repository.IPokemonRepository
 import com.ziad.pokeappcompose.presentation.ui.detail.DetailUIState
 import com.ziad.pokeappcompose.presentation.ui.home.HomeUIState
 import com.ziad.pokeappcompose.utils.ResultState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val repository: IPokemonRepository
+    private val repository: IPokemonRepository,
+    private val sessionPreferenceManager: SessionPreferenceManager
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(HomeUIState())
-    val uiState = _uiState.asStateFlow()
+    val uiState: StateFlow<HomeUIState> = _uiState.asStateFlow()
 
     private val _detailUiState = MutableStateFlow<DetailUIState>(DetailUIState.Idle)
     val detailUiState = _detailUiState.asStateFlow()
-
 
     private var currentOffset = 0
     private val pageSize = 10
     private var isRequestRunning = false
 
     init {
+        val username = sessionPreferenceManager.getUsername() ?: "Username"
+        _uiState.update { it.copy(username = username) }
+
         getPokemon()
     }
 
