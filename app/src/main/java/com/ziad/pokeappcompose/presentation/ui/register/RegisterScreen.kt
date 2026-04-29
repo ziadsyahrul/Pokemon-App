@@ -82,12 +82,12 @@ fun RegisterScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(purple)
-                .padding(start = 28.dp, end = 28.dp, top = 52.dp, bottom = 48.dp)
+                .padding(start = 28.dp, end = 28.dp, top = 28.dp, bottom = 28.dp)
         ) {
 
             Box(
                 modifier = Modifier
-                    .size(160.dp)
+                    .size(120.dp)
                     .offset(x = 80.dp, y = (-40).dp)
                     .align(Alignment.TopEnd)
                     .clip(CircleShape)
@@ -103,21 +103,9 @@ fun RegisterScreen(
             )
 
             Column(modifier = Modifier.fillMaxWidth()) {
-                Box(
-                    modifier = Modifier
-                        .size(44.dp)
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(Color.White.copy(alpha = 0.15f)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Person,
-                        contentDescription = null,
-                        tint = Color.White,
-                        modifier = Modifier.size(22.dp)
-                    )
-                }
+
                 Spacer(modifier = Modifier.height(20.dp))
+
                 Text(
                     text = "Selamat datang",
                     style = MaterialTheme.typography.bodyMedium,
@@ -148,7 +136,6 @@ fun RegisterScreen(
             )
         }
 
-        // ── Form ──
         Column(
             modifier = Modifier
                 .fillMaxSize()

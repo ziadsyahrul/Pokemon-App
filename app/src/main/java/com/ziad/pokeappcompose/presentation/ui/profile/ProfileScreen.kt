@@ -17,9 +17,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -191,6 +192,13 @@ fun ProfileScreen(
                     label = "Bergabung sejak",
                     value = "April 2026",
                     purple = purple,
+                    showDivider = true
+                )
+                ProfileInfoRow(
+                    icon = Icons.Default.ShoppingCart,
+                    label = "Sisa Credit",
+                    value = "0",
+                    purple = purple,
                     showDivider = false
                 )
             }
@@ -209,7 +217,7 @@ fun ProfileScreen(
                 )
             ) {
                 androidx.compose.material3.Icon(
-                    imageVector = Icons.Default.ExitToApp,
+                    imageVector = Icons.AutoMirrored.Filled.ExitToApp,
                     contentDescription = null,
                     modifier = Modifier.size(18.dp)
                 )
