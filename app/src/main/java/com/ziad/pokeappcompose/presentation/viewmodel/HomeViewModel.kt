@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val repository: IPokemonRepository,
-    private val sessionPreferenceManager: SessionPreferenceManager
+    sessionPreferenceManager: SessionPreferenceManager
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(HomeUIState())
@@ -134,7 +134,7 @@ class HomeViewModel @Inject constructor(
                     is ResultState.Error -> {
                         Log.d("DetailDebug", "Error: ${result.message}")
                         _detailUiState.value =
-                            DetailUIState.Error(result.message ?: "Unknown Error")
+                            DetailUIState.Error(result.message)
                     }
 
                     else -> Unit
